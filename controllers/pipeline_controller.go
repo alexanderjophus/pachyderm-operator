@@ -22,15 +22,18 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
-	"sigs.k8s.io/controller-runtime/pkg/log"
+	logger "sigs.k8s.io/controller-runtime/pkg/log"
 
 	pachydermv1alpha1 "github.com/alexanderjophus/pachyderm-operator/api/v1alpha1"
+	pachydermclient "github.com/pachyderm/pachyderm/v2/src/client"
+	"github.com/pachyderm/pachyderm/v2/src/pps"
 )
 
 // PipelineReconciler reconciles a Pipeline object
 type PipelineReconciler struct {
 	client.Client
-	Scheme *runtime.Scheme
+	Scheme          *runtime.Scheme
+	PachydermClient *pachydermclient.APIClient
 }
 
 //+kubebuilder:rbac:groups=pachyderm.dejophus.dev,resources=pipelines,verbs=get;list;watch;create;update;patch;delete
@@ -39,24 +42,47 @@ type PipelineReconciler struct {
 
 // Reconcile is part of the main kubernetes reconciliation loop which aims to
 // move the current state of the cluster closer to the desired state.
-// TODO(user): Modify the Reconcile function to compare the state specified by
-// the Pipeline object against the actual cluster state, and then
-// perform operations to make the cluster state reflect the state specified by
-// the user.
 //
 // For more details, check Reconcile and its Result here:
 // - https://pkg.go.dev/sigs.k8s.io/controller-runtime@v0.14.1/pkg/reconcile
 func (r *PipelineReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
-	_ = log.FromContext(ctx)
+	log := logger.FromContext(ctx)
 
-	// TODO(user): your logic here
+	pachyderm := &pachydermv1alpha1.Pipeline{}
+	if err := r.Get(ctx, req.NamespacedName, pachyderm); err != nil {
+		log.Error(err, "unable to fetch Pachyderm")
+		return ctrl.Result{}, client.IgnoreNotFound(err)
+	}
+	spec := pachyderm.Spec
+
+	if err := r.PachydermClient.CreateProjectPipeline(
+		spec.Project,
+		spec.Name,
+		spec.Transform.Image,
+		spec.Transform.Cmd,
+		spec.Transform.StdIn,
+		&pps.ParallelismSpec{Constant: 1},
+		&pps.Input{
+			Pfs: &pps.PFSInput{
+				Glob: spec.Input.Pfs.Glob,
+				Repo: spec.Input.Pfs.Repo,
+			},
+		},
+		"main",
+		false,
+	); err != nil {
+		log.Error(err, "unable to create pipeline")
+		return ctrl.Result{}, err
+	}
 
 	return ctrl.Result{}, nil
+
 }
 
 // SetupWithManager sets up the controller with the Manager.
 func (r *PipelineReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
 		For(&pachydermv1alpha1.Pipeline{}).
+		// Owns(&corev1.ReplicationController{}). // need to figure out permissions
 		Complete(r)
 }

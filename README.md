@@ -1,8 +1,12 @@
 # pachyderm-operator
-// TODO(user): Add simple overview of use/purpose
+
+I wanted the ability to apply my pachyderm pipelines with a simple `kubectl apply -k .` command.
 
 ## Description
-// TODO(user): An in-depth paragraph about your project and overview of use
+
+This project is a Kubernetes operator for [Pachyderm](https://www.pachyderm.com/) that allows you to manage your pipelines with Kubernetes manifests.
+
+This is in very early stages of development, will likely never be feature complete, and is not recommended for production use.
 
 ## Getting Started
 You’ll need a Kubernetes cluster to run against. You can use [KIND](https://sigs.k8s.io/kind) to get a local cluster for testing, or run against a remote cluster.
@@ -40,9 +44,6 @@ UnDeploy the controller from the cluster:
 ```sh
 make undeploy
 ```
-
-## Contributing
-// TODO(user): Add detailed information on how you would like others to contribute to this project
 
 ### How it works
 This project aims to follow the Kubernetes [Operator pattern](https://kubernetes.io/docs/concepts/extend-kubernetes/operator/).
