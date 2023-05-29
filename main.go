@@ -98,17 +98,10 @@ func main() {
 		os.Exit(1)
 	}
 
-	if err = (&controllers.PachydermReconciler{
+	if err = (&controllers.PipelineReconciler{
 		Client:          mgr.GetClient(),
 		Scheme:          mgr.GetScheme(),
 		PachydermClient: pachydermClient,
-	}).SetupWithManager(mgr); err != nil {
-		setupLog.Error(err, "unable to create controller", "controller", "Pachyderm")
-		os.Exit(1)
-	}
-	if err = (&controllers.PipelineReconciler{
-		Client: mgr.GetClient(),
-		Scheme: mgr.GetScheme(),
 	}).SetupWithManager(mgr); err != nil {
 		setupLog.Error(err, "unable to create controller", "controller", "Pipeline")
 		os.Exit(1)
