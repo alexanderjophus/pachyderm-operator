@@ -48,7 +48,7 @@ type PachydermReconciler struct {
 func (r *PachydermReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
 	log := logger.FromContext(ctx)
 
-	pachyderm := &pachydermv1alpha1.Pachyderm{}
+	pachyderm := &pachydermv1alpha1.Pipeline{}
 	if err := r.Get(ctx, req.NamespacedName, pachyderm); err != nil {
 		log.Error(err, "unable to fetch Pachyderm")
 		return ctrl.Result{}, client.IgnoreNotFound(err)
@@ -81,7 +81,7 @@ func (r *PachydermReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 // SetupWithManager sets up the controller with the Manager.
 func (r *PachydermReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
-		For(&pachydermv1alpha1.Pachyderm{}).
+		For(&pachydermv1alpha1.Pipeline{}).
 		// Owns(&corev1.ReplicationController{}).
 		Complete(r)
 }

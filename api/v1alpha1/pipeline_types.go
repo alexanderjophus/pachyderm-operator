@@ -20,20 +20,11 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-//+kubebuilder:object:root=true
-//+kubebuilder:subresource:status
+// EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
+// NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 
-// Pachyderm is the Schema for the pachyderms API
-type Pachyderm struct {
-	metav1.TypeMeta   `json:",inline"`
-	metav1.ObjectMeta `json:"metadata,omitempty"`
-
-	Spec   PachydermSpec   `json:"spec,omitempty"`
-	Status PachydermStatus `json:"status,omitempty"`
-}
-
-// PachydermSpec defines the desired state of Pachyderm
-type PachydermSpec struct {
+// PipelineSpec defines the desired state of Pipeline
+type PipelineSpec struct {
 	// +kubebuilder:validation:Required
 	Name string `json:"name"`
 	// +kubebuilder:validation:Required
@@ -46,9 +37,8 @@ type PachydermSpec struct {
 	Transform *Transform `json:"transform"`
 }
 
-// PachydermStatus defines the observed state of Pachyderm
-type PachydermStatus struct {
-}
+// PipelineStatus defines the observed state of Pipeline
+type PipelineStatus struct{}
 
 type Input struct {
 	// +kubebuilder:validation:Required
@@ -72,14 +62,26 @@ type Transform struct {
 }
 
 //+kubebuilder:object:root=true
+//+kubebuilder:subresource:status
 
-// PachydermList contains a list of Pachyderm
-type PachydermList struct {
+// Pipeline is the Schema for the pipelines API
+type Pipeline struct {
+	metav1.TypeMeta   `json:",inline"`
+	metav1.ObjectMeta `json:"metadata,omitempty"`
+
+	Spec   PipelineSpec   `json:"spec,omitempty"`
+	Status PipelineStatus `json:"status,omitempty"`
+}
+
+//+kubebuilder:object:root=true
+
+// PipelineList contains a list of Pipeline
+type PipelineList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []Pachyderm `json:"items"`
+	Items           []Pipeline `json:"items"`
 }
 
 func init() {
-	SchemeBuilder.Register(&Pachyderm{}, &PachydermList{})
+	SchemeBuilder.Register(&Pipeline{}, &PipelineList{})
 }

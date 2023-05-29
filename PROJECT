@@ -20,4 +20,13 @@ resources:
   kind: Pachyderm
   path: github.com/alexanderjophus/pachyderm-operator/api/v1alpha1
   version: v1alpha1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: dejophus.dev
+  group: pachyderm
+  kind: Pipeline
+  path: github.com/alexanderjophus/pachyderm-operator/api/v1alpha1
+  version: v1alpha1
 version: "3"
