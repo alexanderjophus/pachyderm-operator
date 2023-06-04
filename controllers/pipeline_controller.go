@@ -39,6 +39,7 @@ type PipelineReconciler struct {
 //+kubebuilder:rbac:groups=pachyderm.dejophus.dev,resources=pipelines,verbs=get;list;watch;create;update;patch;delete
 //+kubebuilder:rbac:groups=pachyderm.dejophus.dev,resources=pipelines/status,verbs=get;update;patch
 //+kubebuilder:rbac:groups=pachyderm.dejophus.dev,resources=pipelines/finalizers,verbs=update
+//+kubebuilder:rbac:groups=core,resources=replicationcontrollers,verbs=get;list;watch
 
 // Reconcile is part of the main kubernetes reconciliation loop which aims to
 // move the current state of the cluster closer to the desired state.
@@ -68,7 +69,7 @@ func (r *PipelineReconciler) Reconcile(ctx context.Context, req ctrl.Request) (c
 				Repo: spec.Input.Pfs.Repo,
 			},
 		},
-		"main",
+		"master",
 		false,
 	); err != nil {
 		log.Error(err, "unable to create pipeline")

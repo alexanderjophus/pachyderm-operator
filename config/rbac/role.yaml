@@ -6,9 +6,17 @@ metadata:
   name: manager-role
 rules:
 - apiGroups:
+  - ""
+  resources:
+  - replicationcontrollers
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
   - pachyderm.dejophus.dev
   resources:
-  - pachyderms
+  - pipelines
   verbs:
   - create
   - delete
@@ -20,13 +28,13 @@ rules:
 - apiGroups:
   - pachyderm.dejophus.dev
   resources:
-  - pachyderms/finalizers
+  - pipelines/finalizers
   verbs:
   - update
 - apiGroups:
   - pachyderm.dejophus.dev
   resources:
-  - pachyderms/status
+  - pipelines/status
   verbs:
   - get
   - patch

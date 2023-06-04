@@ -8,6 +8,12 @@ This project is a Kubernetes operator for [Pachyderm](https://www.pachyderm.com/
 
 This is in very early stages of development, will likely never be feature complete, and is not recommended for production use.
 
+## Deploy
+
+```bash
+kubectl apply -k config/default
+```
+
 ## Getting Started
 
 All credit goes to the [Pachyderm](https://www.pachyderm.com/) team for pachyderm itself.
