@@ -1,4 +1,4 @@
-apiVersion: pachyderm.dejophus.dev/v1alpha1
+apiVersion: pachyderm.alexanderjophus.dev/v1alpha1
 kind: Pipeline
 metadata:
   labels:

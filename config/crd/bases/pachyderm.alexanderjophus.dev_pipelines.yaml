@@ -5,9 +5,9 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.11.1
   creationTimestamp: null
-  name: pipelines.pachyderm.dejophus.dev
+  name: pipelines.pachyderm.alexanderjophus.dev
 spec:
-  group: pachyderm.dejophus.dev
+  group: pachyderm.alexanderjophus.dev
   names:
     kind: Pipeline
     listKind: PipelineList

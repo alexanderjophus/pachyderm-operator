@@ -36,9 +36,9 @@ type PipelineReconciler struct {
 	PachydermClient *pachydermclient.APIClient
 }
 
-//+kubebuilder:rbac:groups=pachyderm.dejophus.dev,resources=pipelines,verbs=get;list;watch;create;update;patch;delete
-//+kubebuilder:rbac:groups=pachyderm.dejophus.dev,resources=pipelines/status,verbs=get;update;patch
-//+kubebuilder:rbac:groups=pachyderm.dejophus.dev,resources=pipelines/finalizers,verbs=update
+//+kubebuilder:rbac:groups=pachyderm.alexanderjophus.dev,resources=pipelines,verbs=get;list;watch;create;update;patch;delete
+//+kubebuilder:rbac:groups=pachyderm.alexanderjophus.dev,resources=pipelines/status,verbs=get;update;patch
+//+kubebuilder:rbac:groups=pachyderm.alexanderjophus.dev,resources=pipelines/finalizers,verbs=update
 //+kubebuilder:rbac:groups=core,resources=replicationcontrollers,verbs=get;list;watch
 
 // Reconcile is part of the main kubernetes reconciliation loop which aims to

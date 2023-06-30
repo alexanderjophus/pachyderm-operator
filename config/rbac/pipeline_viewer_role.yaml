@@ -12,7 +12,7 @@ metadata:
   name: pipeline-viewer-role
 rules:
 - apiGroups:
-  - pachyderm.dejophus.dev
+  - pachyderm.alexanderjophus.dev
   resources:
   - pipelines
   verbs:
@@ -20,7 +20,7 @@ rules:
   - list
   - watch
 - apiGroups:
-  - pachyderm.dejophus.dev
+  - pachyderm.alexanderjophus.dev
   resources:
   - pipelines/status
   verbs:

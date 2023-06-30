@@ -14,7 +14,7 @@ rules:
   - list
   - watch
 - apiGroups:
-  - pachyderm.dejophus.dev
+  - pachyderm.alexanderjophus.dev
   resources:
   - pipelines
   verbs:
@@ -26,13 +26,13 @@ rules:
   - update
   - watch
 - apiGroups:
-  - pachyderm.dejophus.dev
+  - pachyderm.alexanderjophus.dev
   resources:
   - pipelines/finalizers
   verbs:
   - update
 - apiGroups:
-  - pachyderm.dejophus.dev
+  - pachyderm.alexanderjophus.dev
   resources:
   - pipelines/status
   verbs:
